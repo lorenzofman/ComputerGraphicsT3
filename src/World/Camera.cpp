@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "Screen.h"
 #include "../Primitives/Constants.h"
+#include "../Canvas2D/Canvas2D.h"
 
 Camera::Camera(float fieldOfView)
 {
@@ -21,7 +22,7 @@ Float2 Camera::ViewToProjection(Float3 viewPoint) const
     float zDistance = viewPoint.z - position.z;
     if (zDistance <= 0)
     {
-        return {0, 0};
+        return {NAN, NAN};
     }
     return {aspectRatio * fovDistance * viewPoint.x / zDistance, viewPoint.y * fovDistance / zDistance};
 }
@@ -34,4 +35,21 @@ Float2 Camera::ProjectionToDisplay(Float2 projectionPoint)
 Float2 Camera::WorldToDisplay(Float3 worldPoint) const
 {
     return ProjectionToDisplay(ViewToProjection(WorldToView(worldPoint)));
+}
+
+void Camera::DrawTriangle(Triangle tri)
+{
+    Float2 a = WorldToDisplay(tri.a);
+    Float2 b = WorldToDisplay(tri.b);
+    Float2 c = WorldToDisplay(tri.c);
+
+    Canvas2D::DrawTriangle(a, b, c);
+}
+
+void Camera::Draw(Object obj)
+{
+    for (auto tri : obj.triangles)
+    {
+        DrawTriangle(tri);
+    }
 }

@@ -7,9 +7,8 @@ void Main::OnUpdate(float tick)
 {
 	Canvas2D::ClearScreen(Colors::Background);
 	crankshaft.Update(tick);
-	crankshaft.Draw();
-
-
+	//crankshaft.Draw();
+	camera.Draw(sphere);
 	Canvas2D::ClearScreen(Colors::Background);
 	Canvas2D::SetColor(Color(1, 1, 1));
 	Float3 p[] =
@@ -90,12 +89,11 @@ void Main::OnLeftMouseUp() const
 void Main::OnLeftMouse(float tick)
 {
     Float2 diff = EventSystem::MousePositionDelta;
-    camera.rotation += Float3(0, diff.x,-diff.y) * DegToRad *  tick;
+    camera.rotation += Float3(0, -diff.x,-diff.y) * DegToRad;
 }
 
 int main()
 {
-    std::cout << "Ok" << std::endl;
     Main mainInstance = Main();
     EventSystem::UpdateCallback.Register([&mainInstance](float tick){mainInstance.OnUpdate(tick);});
     EventSystem::KeyDownCallback.Register([&mainInstance](int key){mainInstance.OnKeyboard(key);});

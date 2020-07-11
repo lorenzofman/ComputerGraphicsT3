@@ -9,10 +9,10 @@
 	http://www.opengl.org/documentation/specs/glut/
 	http://www.opengl.org/documentation/specs/glut/spec3/node1.html
 
-	Código formatado, métodos convertidos para Pascal Case (para manter a formatação nas classes mais abstratas),  traduzido para inglês e convertido para classe por: Lorenzo Schwertner Kaufmann (23/03/2020)
-	Métodos que usavam o valor literal 6.27 ao invés de PI_2 (6.28) para não fechar todos pontos do círculo foram substituídos por loops inteiros que não causam confusão. Itera n-1 vezes
-	Parametros de DrawPolygon alterados para uma estrutura que contém x, y
-	Original disponível em http://www-usr.inf.ufsm.br/~pozzer/
+	Cï¿½digo formatado, mï¿½todos convertidos para Pascal Case (para manter a formataï¿½ï¿½o nas classes mais abstratas),  traduzido para inglï¿½s e convertido para classe por: Lorenzo Schwertner Kaufmann (23/03/2020)
+	Mï¿½todos que usavam o valor literal 6.27 ao invï¿½s de PI_2 (6.28) para nï¿½o fechar todos pontos do cï¿½rculo foram substituï¿½dos por loops inteiros que nï¿½o causam confusï¿½o. Itera n-1 vezes
+	Parametros de DrawPolygon alterados para uma estrutura que contï¿½m x, y
+	Original disponï¿½vel em http://www-usr.inf.ufsm.br/~pozzer/
 */
 
 #include "Canvas2D.h"
@@ -264,4 +264,22 @@ void Canvas2D::Display()
 void Canvas2D::RunCanvas()
 {
 	glutMainLoop();
+}
+
+void Canvas2D::DrawTriangle(Float2 a, Float2 b, Float2 c)
+{
+    glBegin(GL_LINE_LOOP);
+        glVertex2d(a.x, a.y);
+        glVertex2d(b.x, b.y);
+        glVertex2d(c.x, c.y);
+    glEnd();
+}
+
+void Canvas2D::DrawFilledTriangle(Float2 a, Float2 b, Float2 c)
+{
+    glBegin(GL_POLYGON);
+        glVertex2d(a.x, a.y);
+        glVertex2d(b.x, b.y);
+        glVertex2d(c.x, c.y);
+    glEnd();
 }

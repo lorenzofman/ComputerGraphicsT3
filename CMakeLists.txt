@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(Motor)
+project(Canvas)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Canvas src/World/Main.cpp
@@ -22,7 +22,17 @@ add_executable(Canvas src/World/Main.cpp
         src/UI/TextButton.cpp
         src/UI/TextButton.h
         src/UI/Rect.cpp
-        src/UI/Rect.h src/World/Camera.cpp src/World/Camera.h src/Primitives/Float3.h src/Primitives/Edge.h src/Objects/Crankshaft.cpp src/Objects/Crankshaft.h src/Objects/ObjectCreator.cpp src/Objects/ObjectCreator.h src/Objects/Object.h src/Objects/Triangle.h)
+        src/UI/Rect.h
+        src/World/Camera.cpp
+        src/World/Camera.h
+        src/Primitives/Float3.h
+        src/Primitives/Edge.h
+        src/Objects/Crankshaft.cpp
+        src/Objects/Crankshaft.h
+        src/Objects/ObjectCreator.cpp
+        src/Objects/ObjectCreator.h
+        src/Objects/Object.h
+        src/Objects/Triangle.h)
 
-include_directories(C:/Users/Lorenzofman/Documents/ComputerGraphics/Include)
-target_link_libraries(Canvas C:/Users/Lorenzofman/Documents/ComputerGraphics/Library/freeglut.lib)
+include_directories(include)
+target_link_libraries(Canvas C:/Users/Lorenzo/Documents/ComputerGraphics/Library/freeglut.lib)

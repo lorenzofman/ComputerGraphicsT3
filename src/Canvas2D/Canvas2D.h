@@ -23,6 +23,8 @@ class Canvas2D
 	static void DrawPoint(Float2);
 	static void DrawLine(Float2, Float2);
 
+	static void DrawTriangle(Float2, Float2, Float2);
+    static void DrawFilledTriangle(Float2, Float2, Float2);
 	static void DrawRect(Float2, Float2);
 	static void DrawFilledRect(Float2, Float2);
 

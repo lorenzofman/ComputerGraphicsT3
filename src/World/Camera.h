@@ -2,6 +2,8 @@
 
 #include "../Primitives/Float2.h"
 #include "../Primitives/Float3.h"
+#include "../Objects/Triangle.h"
+#include "../Objects/Object.h"
 
 class Camera
 {
@@ -11,7 +13,8 @@ class Camera
     Float3 position;
     Float3 rotation;
     Float2 WorldToDisplay(Float3 worldPoint) const;
-
+    void DrawTriangle(Triangle tri);
+    void Draw(Object obj);
     private:
 
     float fieldOfView;
