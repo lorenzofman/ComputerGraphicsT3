@@ -4,10 +4,9 @@
 #include "../Primitives/Float2.h"
 #include "../UI/TextButton.h"
 #include "Camera.h"
-#include "../Objects/Crankshaft.h"
+#include "../Objects/Crankshaft2D.h"
 #include "../Objects/Object.h"
 #include "../Objects/ObjectCreator.h"
-//#include "../Objects/ObjectCreator.h"
 
 class Main
 {
@@ -21,10 +20,12 @@ class Main
 
     void OnLeftMouseUp() const;
 
-    private:
-    Object sphere = ObjectCreator::BuildCylinder(32, 32, 1, 3);
+	void Start();
 
-    Crankshaft crankshaft = Crankshaft(200, 100, 320);
+	private:
+    Object sphere = ObjectCreator::BuildCylinder(32, 32, 1, 3);
+	Object cube = ObjectCreator::BuildCube(1);
+    Crankshaft2D crankshaft = Crankshaft2D(200, 100, 320);
 
     Camera camera = Camera(75);
     int callbackId = -1;

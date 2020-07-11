@@ -14,11 +14,11 @@ struct Object
 
     void Translate(Float3 displacement)
     {
-	    for (auto tri : triangles)
+	    for (int i = 0; i< triangles.size(); i++)
         {
-	        tri.a += displacement;
-            tri.b += displacement;
-            tri.c += displacement;
+	        triangles[i].a += displacement;
+			triangles[i].b += displacement;
+			triangles[i].c += displacement;
         }
     }
 };

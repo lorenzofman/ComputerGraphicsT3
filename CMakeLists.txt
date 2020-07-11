@@ -27,12 +27,12 @@ add_executable(Canvas src/World/Main.cpp
         src/World/Camera.h
         src/Primitives/Float3.h
         src/Primitives/Edge.h
-        src/Objects/Crankshaft.cpp
-        src/Objects/Crankshaft.h
+        src/Objects/Crankshaft2D.cpp
+        src/Objects/Crankshaft2D.h
         src/Objects/ObjectCreator.cpp
         src/Objects/ObjectCreator.h
         src/Objects/Object.h
-        src/Objects/Triangle.h)
+        src/Objects/Triangle.h src/Objects/Crankshaft3D.cpp src/Objects/Crankshaft3D.h)
 
 include_directories(include)
-target_link_libraries(Canvas C:/Users/Lorenzo/Documents/ComputerGraphics/Library/freeglut.lib)
+target_link_libraries(Canvas C:/Library/freeglut.lib)

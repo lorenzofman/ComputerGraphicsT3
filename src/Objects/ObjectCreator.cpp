@@ -77,3 +77,39 @@ std::vector<Triangle> ObjectCreator::TriangulateGrid(int w, int h, const Float3 
     }
     return tris;
 }
+
+Object ObjectCreator::BuildCube(float edge)
+{
+	Float3 p[] =
+	{
+		Float3(-1, -1, -1),
+		Float3(-1, -1, +1),
+		Float3(-1, +1, -1),
+		Float3(-1, +1, +1),
+		Float3(+1, -1, -1),
+		Float3(+1, -1, +1),
+		Float3(+1, +1, -1),
+		Float3(+1, +1, +1)
+	};
+	std::vector<Triangle> triangles;
+	triangles.emplace_back(p[0], p[1], p[2]);
+	triangles.emplace_back(p[0], p[1], p[5]);
+	triangles.emplace_back(p[0], p[2], p[6]);
+	triangles.emplace_back(p[0], p[4], p[5]);
+	triangles.emplace_back(p[0], p[4], p[6]);
+
+	triangles.emplace_back(p[1], p[2], p[3]);
+	triangles.emplace_back(p[1], p[3], p[5]);
+
+	triangles.emplace_back(p[2], p[3], p[6]);
+	triangles.emplace_back(p[2], p[3], p[6]);
+
+	triangles.emplace_back(p[3], p[5], p[7]);
+	triangles.emplace_back(p[3], p[6], p[7]);
+
+	triangles.emplace_back(p[4], p[6], p[7]);
+	triangles.emplace_back(p[4], p[5], p[7]);
+	triangles.emplace_back(p[4], p[6], p[7]);
+
+	return Object(triangles);
+}

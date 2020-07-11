@@ -1,36 +1,25 @@
-#include "Crankshaft.h"
+#include "Crankshaft2D.h"
 #include "../Primitives/Constants.h"
 #include "../Canvas2D/Canvas2D.h"
 #include "../World/Screen.h"
+#include "../Helpers/Utils.h"
 
-Crankshaft::Crankshaft(float rpm, float radius, float rodLength)
+Crankshaft2D::Crankshaft2D(float rpm, float radius, float rodLength)
 {
 	angularVelocity = 2 * PI * rpm / 60;
 	halfStroke = radius;
 	this->rodLength = rodLength;
 }
 
-void Crankshaft::Update(float deltaTime)
+void Crankshaft2D::Update(float deltaTime)
 {
 	angle += deltaTime * angularVelocity;
 }
 
-Float2 Bhaskara(float a, float b, float c)
-{
-	auto delta = b * b - 4 * a * c;
-	if (delta < 0)
-	{
-		return {NAN, NAN};
-	}
-	auto sq = sqrtf(delta);
-	return Float2(-b - sq, -b + sq) * (1 / (2 * a));
-}
-
-
-void Crankshaft::Draw()
+void Crankshaft2D::Draw() const
 {
 	const Float2 pos = Float2(cosf(angle), sinf(angle)) * halfStroke + Screen::Center();
-	auto bhaskara = Bhaskara(1, -2 * halfStroke * cosf(angle) , -rodLength * rodLength + halfStroke * halfStroke);
+	auto bhaskara = Utils::Bhaskara(1, -2 * halfStroke * cosf(angle), -rodLength * rodLength + halfStroke * halfStroke);
 	auto solver = (bhaskara.x > 0) ? bhaskara.x : bhaskara.y;
 
 	const Float2 pin = Float2((float) Screen::Width / 2.0f, solver + (float) Screen::Height / 2);

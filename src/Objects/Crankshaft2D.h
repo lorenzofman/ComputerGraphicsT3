@@ -1,16 +1,16 @@
 #pragma once
 
-class Crankshaft
+class Crankshaft2D
 {
 	public:
-    explicit Crankshaft(float rpm, float radius, float rodLength);
+    explicit Crankshaft2D(float rpm, float radius, float rodLength);
 
 	void Update(float deltaTime);
-	void Draw();
+	void Draw() const;
 
 	private:
 	float angularVelocity;
-	float angle;
+	float angle = 0;
 	float halfStroke;
 	float rodLength;
 };
