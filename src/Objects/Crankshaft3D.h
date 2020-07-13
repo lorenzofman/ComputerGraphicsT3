@@ -1,16 +1,11 @@
 #pragma once
 
-class Crankshaft3D
+#include "Crankshaft.h"
+
+class Crankshaft3D : public Crankshaft
 {
 	public:
-	explicit Crankshaft3D(float rpm, float radius, float rodLength);
+	Crankshaft3D(float rpm, float radius, float rodLength);
 
-	void Update(float deltaTime);
-	void Draw() const;
-
-	private:
-	float angularVelocity;
-	float angle = 0;
-	float halfStroke;
-	float rodLength;
+	void Draw(Float2 pin, Float2 pos) override;
 };
