@@ -6,5 +6,5 @@ class Crankshaft2D : public Crankshaft
 {
 	public:
     Crankshaft2D(float rpm, float radius, float rodLength);
-	void Draw(Float2 pin, Float2 pos) override;
+	void Draw(Float2 pistonPin, Float2 crankPosition) override;
 };

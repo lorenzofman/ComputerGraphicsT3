@@ -26,7 +26,7 @@ class Main
     //Object cylinder = ObjectCreator::BuildCylinder(32, 1, 3);
 	Object sphere = ObjectCreator::BuildFlatRoundedRectangle(10, 2, 3, 32);
 	Object cube = ObjectCreator::BuildCube(1);
-    Crankshaft2D crankshaft = Crankshaft2D(200, 100, 320);
+    Crankshaft2D crankshaft = Crankshaft2D(10, 100, 320);
 
     Camera camera = Camera(75);
     int callbackId = -1;

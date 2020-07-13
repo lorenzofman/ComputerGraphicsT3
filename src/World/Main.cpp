@@ -8,7 +8,6 @@ void Main::OnUpdate(float tick)
 {
 	Canvas2D::ClearScreen(Colors::Background);
 	crankshaft.Update(tick);
-//	crankshaft.Draw();
 	camera.Draw(sphere);
 	camera.Draw(cube);
 	Canvas2D::ClearScreen(Colors::Background);
@@ -65,6 +64,7 @@ int main()
 {
     Main mainInstance = Main();
 	mainInstance.Start();
+	EventSystem::Start();
     EventSystem::UpdateCallback.Register([&mainInstance](float tick){mainInstance.OnUpdate(tick);});
     EventSystem::KeyDownCallback.Register([&mainInstance](int key){mainInstance.OnKeyboard(key);});
     EventSystem::RightMouseButtonDownCallback.Register([&mainInstance]{mainInstance.OnLeftMouseDown();});

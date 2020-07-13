@@ -27,6 +27,7 @@ class EventSystem
 		Down = 0,
 		Up = 1
 	};
+	static void Start();
 	static void OnUpdate();
 	static void OnKeyDown(int key);
 	static void OnKeyUp(int key);
@@ -56,4 +57,5 @@ class EventSystem
 
     static Int2 MousePosition;
 	static Int2 MousePositionDelta;
+
 };

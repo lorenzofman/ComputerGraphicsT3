@@ -8,11 +8,20 @@ class Crankshaft
 	Crankshaft(float rpm, float radius, float rodLength);
 
 	void Update(float deltaTime);
-	virtual void Draw(Float2 pin, Float2 pos) = 0;
+
+	virtual void Draw(Float2 pistonPin, Float2 crankPosition) = 0;
 
 	private:
+	void UpdateVelocity(float deltaTime);
+
 	float angularVelocity;
-	float angle = 0;
-	float halfStroke;
+	float angle;
+	float radius;
 	float rodLength;
+
+	Float2 CalculateCrankPosition() const;
+
+	float CalculatePosition() const;
+
+	static float Square(float f);
 };

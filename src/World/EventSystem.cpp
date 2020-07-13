@@ -3,7 +3,7 @@
 
 Int2 EventSystem::MousePosition;
 Int2 EventSystem::MousePositionDelta;
-std::chrono::steady_clock::time_point lastTime;
+std::chrono::steady_clock::time_point lastUpdateTime;
 float EventSystem::LastFrameDuration = 0;
 Callback<float> EventSystem::UpdateCallback;
 Callback<int> EventSystem::KeyDownCallback;
@@ -27,8 +27,8 @@ Callback<> EventSystem::ScreenUpdateCallback;
 void EventSystem::OnUpdate()
 {
 	auto current = std::chrono::steady_clock::now();
-	LastFrameDuration = (float) (std::chrono::duration_cast<std::chrono::nanoseconds>(current - lastTime).count() / 1e9);
-	lastTime = std::chrono::steady_clock::now();
+	LastFrameDuration = (float) (std::chrono::duration_cast<std::chrono::nanoseconds>(current - lastUpdateTime).count() / 1e9);
+	lastUpdateTime = std::chrono::steady_clock::now();
 	UpdateCallback.Invoke(LastFrameDuration);
 	MousePositionDelta = Int2(0, 0);
 }
@@ -97,4 +97,9 @@ void EventSystem::MouseButtonClick(Callback<> downCallback, Callback<> upCallbac
 void EventSystem::ScreenUpdate()
 {
 	ScreenUpdateCallback.Invoke();
+}
+
+void EventSystem::Start()
+{
+	lastUpdateTime = std::chrono::steady_clock::now();
 }

@@ -8,4 +8,6 @@ namespace Colors
 }
 
 constexpr float PI = 3.14159265359f;
+constexpr float TAU = 2 * PI;
+
 constexpr float DegToRad = PI / 180.0f;

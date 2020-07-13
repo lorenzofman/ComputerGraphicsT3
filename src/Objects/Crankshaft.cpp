@@ -1,26 +1,54 @@
-//
-// Created by Lorenzofman on 7/13/2020.
-//
-
 #include <cmath>
+#include <iostream>
 #include "Crankshaft.h"
 #include "../World/Screen.h"
-#include "../Helpers/Utils.h"
 #include "../Primitives/Constants.h"
 
 Crankshaft::Crankshaft(float rpm, float radius, float rodLength)
 {
+	angle = PI / 2;
 	angularVelocity = 2 * PI * rpm / 60;
-	halfStroke = radius;
+	this->radius = radius;
 	this->rodLength = rodLength;
 }
 
 void Crankshaft::Update(float deltaTime)
 {
-	angle += deltaTime * angularVelocity;
-	const Float2 pos = Float2(cosf(angle), sinf(angle)) * halfStroke + Screen::Center();
-	auto bhaskara = Utils::Bhaskara(1, -2 * halfStroke * cosf(angle), -rodLength * rodLength + halfStroke * halfStroke);
-	auto solver = (bhaskara.x > 0) ? bhaskara.x : bhaskara.y;
-	const Float2 pin = Float2((float) Screen::Width / 2.0f, solver + (float) Screen::Height / 2);
+	UpdateVelocity(deltaTime);
 
+	Float2 crankPosition = CalculateCrankPosition();
+
+	float pistonPinHeight = CalculatePosition();
+
+	Float2 pistonPin = Float2(0, pistonPinHeight);
+
+	std:: cout << Float2::Distance(pistonPin, crankPosition) << std::endl;
+
+	Draw(pistonPin, crankPosition);
+}
+
+void Crankshaft::UpdateVelocity(float deltaTime)
+{
+	angle += angularVelocity * deltaTime;
+
+	if (angle >= TAU)
+	{
+		angle -= TAU;
+	}
+}
+
+Float2 Crankshaft::CalculateCrankPosition() const
+{
+	return Float2(cosf(angle), sinf(angle)) * radius;
+}
+
+float Crankshaft::CalculatePosition() const
+{
+	float relativeAngle = angle - PI / 2;
+	return radius * cosf(relativeAngle) + sqrtf(Square(rodLength) - Square(radius * sinf(relativeAngle)));
+}
+
+float Crankshaft::Square(float f)
+{
+	return f * f;
 }
