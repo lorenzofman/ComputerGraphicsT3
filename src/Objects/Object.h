@@ -2,23 +2,26 @@
 
 #include <utility>
 #include <vector>
-#include "Triangle.h"
+#include "Face.h"
 
 struct Object
 {
-	std::vector<Triangle> triangles;
-	explicit Object(std::vector<Triangle> triangles)
+	Object()
 	{
-        this->triangles = std::move(triangles);
-    }
 
+	}
+
+	Object(std::vector<Face> faces)
+	{
+		this->faces = std::move(faces);
+	}
+
+	std::vector<Face> faces;
     void Translate(Float3 displacement)
     {
-	    for (int i = 0; i< triangles.size(); i++)
+	    for (int i = 0; i< faces.size(); i++)
         {
-	        triangles[i].a += displacement;
-			triangles[i].b += displacement;
-			triangles[i].c += displacement;
+	    	faces[i].Translate(displacement);
         }
     }
 };

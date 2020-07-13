@@ -23,7 +23,8 @@ class Main
 	void Start();
 
 	private:
-    Object sphere = ObjectCreator::BuildCylinder(32, 32, 1, 3);
+    //Object cylinder = ObjectCreator::BuildCylinder(32, 1, 3);
+	Object sphere = ObjectCreator::BuildFlatRoundedRectangle(10, 2, 3, 32);
 	Object cube = ObjectCreator::BuildCube(1);
     Crankshaft2D crankshaft = Crankshaft2D(200, 100, 320);
 

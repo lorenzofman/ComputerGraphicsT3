@@ -37,19 +37,21 @@ Float2 Camera::WorldToDisplay(Float3 worldPoint) const
     return ProjectionToDisplay(ViewToProjection(WorldToView(worldPoint)));
 }
 
-void Camera::DrawTriangle(Triangle tri)
+void Camera::DrawFace(const Face& face) const
 {
-    Float2 a = WorldToDisplay(tri.a);
-    Float2 b = WorldToDisplay(tri.b);
-    Float2 c = WorldToDisplay(tri.c);
-
-    Canvas2D::DrawTriangle(a, b, c);
+	std::vector<Float2> points;
+	points.reserve(face.points.size());
+	for (auto & point : face.points)
+	{
+		points.push_back(WorldToDisplay(point));
+	}
+	Canvas2D::DrawPolygon(points.data(), points.size());
 }
 
-void Camera::Draw(Object obj)
+void Camera::Draw(const Object& obj)
 {
-    for (auto tri : obj.triangles)
+    for (auto& face : obj.faces)
     {
-        DrawTriangle(tri);
+		DrawFace(face);
     }
 }

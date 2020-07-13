@@ -265,21 +265,3 @@ void Canvas2D::RunCanvas()
 {
 	glutMainLoop();
 }
-
-void Canvas2D::DrawTriangle(Float2 a, Float2 b, Float2 c)
-{
-    glBegin(GL_LINE_LOOP);
-        glVertex2d(a.x, a.y);
-        glVertex2d(b.x, b.y);
-        glVertex2d(c.x, c.y);
-    glEnd();
-}
-
-void Canvas2D::DrawFilledTriangle(Float2 a, Float2 b, Float2 c)
-{
-    glBegin(GL_POLYGON);
-        glVertex2d(a.x, a.y);
-        glVertex2d(b.x, b.y);
-        glVertex2d(c.x, c.y);
-    glEnd();
-}

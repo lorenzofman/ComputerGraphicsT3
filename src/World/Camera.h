@@ -9,13 +9,14 @@ class Camera
 {
     public:
 
-    Camera(float fieldOfView);
+    explicit Camera(float fieldOfView);
     Float3 position;
     Float3 rotation;
     Float2 WorldToDisplay(Float3 worldPoint) const;
-    void DrawTriangle(Triangle tri);
-    void Draw(Object obj);
+    void DrawFace(const Face& face) const;
+    void Draw(const Object& obj);
     private:
+
 
     float fieldOfView;
     Float3 WorldToView(Float3 worldPoint) const;

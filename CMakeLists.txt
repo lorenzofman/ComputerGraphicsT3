@@ -32,7 +32,7 @@ add_executable(Canvas src/World/Main.cpp
         src/Objects/ObjectCreator.cpp
         src/Objects/ObjectCreator.h
         src/Objects/Object.h
-        src/Objects/Triangle.h src/Objects/Crankshaft3D.cpp src/Objects/Crankshaft3D.h)
+        src/Objects/Triangle.h src/Objects/Crankshaft3D.cpp src/Objects/Crankshaft3D.h src/Objects/Face.cpp src/Objects/Face.h)
 
 include_directories(include)
 target_link_libraries(Canvas C:/Library/freeglut.lib)

@@ -24,8 +24,6 @@ void Crankshaft2D::Draw() const
 
 	const Float2 pin = Float2((float) Screen::Width / 2.0f, solver + (float) Screen::Height / 2);
 
-	const Float2 pin2 = Float2((float) Screen::Width / 2.0f, solver + (float) Screen::Height / 2);
-
 	Canvas2D::SetColor({1, 1, 1});
 	Canvas2D::DrawCircle(Screen::Center(), halfStroke, 32);
 	Canvas2D::DrawCircle(pos, halfStroke/4, 32);

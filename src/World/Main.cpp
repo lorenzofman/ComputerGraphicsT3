@@ -8,7 +8,7 @@ void Main::OnUpdate(float tick)
 {
 	Canvas2D::ClearScreen(Colors::Background);
 	crankshaft.Update(tick);
-	crankshaft.Draw();
+//	crankshaft.Draw();
 	camera.Draw(sphere);
 	camera.Draw(cube);
 	Canvas2D::ClearScreen(Colors::Background);
