@@ -1,12 +1,10 @@
 #include <cmath>
-#include <iostream>
 #include "Crankshaft.h"
 #include "../World/Screen.h"
-#include "../Primitives/Constants.h"
 
-Crankshaft::Crankshaft(float rpm, float radius, float rodLength)
+Crankshaft::Crankshaft(float rpm, float radius, float rodLength, float initialRotation)
 {
-	angle = PI / 2;
+	rotation = initialRotation;
 	angularVelocity = 2 * PI * rpm / 60;
 	this->radius = radius;
 	this->rodLength = rodLength;
@@ -22,29 +20,27 @@ void Crankshaft::Update(float deltaTime)
 
 	Float2 pistonPin = Float2(0, pistonPinHeight);
 
-	std:: cout << Float2::Distance(pistonPin, crankPosition) << std::endl;
-
 	Draw(pistonPin, crankPosition);
 }
 
 void Crankshaft::UpdateVelocity(float deltaTime)
 {
-	angle += angularVelocity * deltaTime;
+	rotation -= angularVelocity * deltaTime;
 
-	if (angle >= TAU)
+	if (rotation <= -TAU)
 	{
-		angle -= TAU;
+		rotation += TAU;
 	}
 }
 
 Float2 Crankshaft::CalculateCrankPosition() const
 {
-	return Float2(cosf(angle), sinf(angle)) * radius;
+	return Float2(cosf(rotation), sinf(rotation)) * radius;
 }
 
 float Crankshaft::CalculatePosition() const
 {
-	float relativeAngle = angle - PI / 2;
+	float relativeAngle = rotation - PI / 2;
 	return radius * cosf(relativeAngle) + sqrtf(Square(rodLength) - Square(radius * sinf(relativeAngle)));
 }
 

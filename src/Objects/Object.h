@@ -17,11 +17,7 @@ struct Object
 	}
 
 	std::vector<Face> faces;
-    void Translate(Float3 displacement)
-    {
-	    for (int i = 0; i< faces.size(); i++)
-        {
-	    	faces[i].Translate(displacement);
-        }
-    }
+
+    Float3 position;
+    Float3 rotation;
 };

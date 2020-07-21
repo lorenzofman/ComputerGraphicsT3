@@ -19,11 +19,20 @@ struct Face
 	}
 
 	std::vector<Float3> points;
+
 	void Translate(Float3 displacement)
 	{
 		for (auto & point : points)
 		{
 			point += displacement;
+		}
+	}
+
+	void Rotate(Float3 rotation)
+	{
+		for (auto & point : points)
+		{
+			point = point.Rotate(rotation);
 		}
 	}
 

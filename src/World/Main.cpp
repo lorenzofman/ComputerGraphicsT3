@@ -1,15 +1,16 @@
 #include "EventSystem.h"
 #include "Main.h"
 #include "Screen.h"
-//Todo: Remove edge structure
-#include "../Primitives/Edge.h"
 
 void Main::OnUpdate(float tick)
 {
 	Canvas2D::ClearScreen(Colors::Background);
-	crankshaft.Update(tick);
-	camera.Draw(sphere);
-	camera.Draw(cube);
+	//crankshaft2D.Update(tick);
+	crankshaft1.Update(tick);
+	crankshaft2.Update(tick);
+	crankshaft3.Update(tick);
+	crankshaft4.Update(tick);
+	camera.Draw(connectingPipe);
 	Canvas2D::ClearScreen(Colors::Background);
 }
 
@@ -41,7 +42,10 @@ void Main::OnKeyboard(int key)
 
 void Main::OnLeftMouseDown()
 {
-    callbackId = EventSystem::UpdateCallback.Register([this](float tick) {this->OnLeftMouse(tick);});
+    callbackId = EventSystem::UpdateCallback.Register([this](float tick)
+	{
+		this->OnLeftMouse();
+	});
 }
 
 void Main::OnLeftMouseUp() const
@@ -49,21 +53,15 @@ void Main::OnLeftMouseUp() const
     EventSystem::UpdateCallback.Deregister(callbackId);
 }
 
-void Main::OnLeftMouse(float tick)
+void Main::OnLeftMouse()
 {
     Float2 diff = EventSystem::MousePositionDelta;
-    camera.rotation += Float3(0, -diff.x,-diff.y) * DegToRad;
-}
-
-void Main::Start()
-{
-	cube.Translate({0, 0, 10});
+    camera.rotation += Float3(0, -diff.x, -diff.y) * DegToRad * 0.25f;
 }
 
 int main()
 {
     Main mainInstance = Main();
-	mainInstance.Start();
 	EventSystem::Start();
     EventSystem::UpdateCallback.Register([&mainInstance](float tick){mainInstance.OnUpdate(tick);});
     EventSystem::KeyDownCallback.Register([&mainInstance](int key){mainInstance.OnKeyboard(key);});

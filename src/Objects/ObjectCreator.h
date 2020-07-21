@@ -5,9 +5,9 @@
 class ObjectCreator
 {
     public:
-
-	static Object BuildCube(float edgeSize);
-	static Object Circle(int segments, float radius);
+	static Object BuildCube(float edge);
+	static Object BuildBox(float width, float height, float depth);
+	static Object BuildCircle(int segments, float radius);
 	static Object BuildCylinder(int segments, float radius, float height);
 	static Object BuildFlatRoundedRectangle(float height, float width, float depth, int segments);
 //	static Object BuildSphere(int segments, int rings, float radius);

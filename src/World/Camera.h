@@ -14,7 +14,7 @@ class Camera
     Float3 rotation;
     Float2 WorldToDisplay(Float3 worldPoint) const;
     void DrawFace(const Face& face) const;
-    void Draw(const Object& obj);
+    void Draw(const Object& obj) const;
     private:
 
 

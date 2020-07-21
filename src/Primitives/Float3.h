@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cmath>
 struct Float3
 {
     float x, y, z;

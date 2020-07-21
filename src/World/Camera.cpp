@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include "Camera.h"
 #include "Screen.h"
 #include "../Primitives/Constants.h"
@@ -48,10 +49,12 @@ void Camera::DrawFace(const Face& face) const
 	Canvas2D::DrawPolygon(points.data(), points.size());
 }
 
-void Camera::Draw(const Object& obj)
+void Camera::Draw(const Object& obj) const
 {
-    for (auto& face : obj.faces)
+	for (auto face : obj.faces)
     {
+    	face.Rotate(obj.rotation);
+    	face.Translate(obj.position);
 		DrawFace(face);
     }
 }
