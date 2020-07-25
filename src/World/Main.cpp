@@ -5,13 +5,27 @@
 void Main::OnUpdate(float tick)
 {
 	Canvas2D::ClearScreen(Colors::Background);
-	//crankshaft2D.Update(tick);
-	crankshaft1.Update(tick);
-	crankshaft2.Update(tick);
-	crankshaft3.Update(tick);
-	crankshaft4.Update(tick);
-	camera.Draw(connectingPipe);
-	Canvas2D::ClearScreen(Colors::Background);
+	Canvas2D::SetColor({0.8f, 0.8f, 0.8f});
+
+	switch (dimension)
+	{
+		case Dimension::D2:
+			crankshaft2D.Update(tick);
+			break;
+		case Dimension::D3:
+			motor.Update(tick);
+			break;
+	}
+
+	DrawUserInterface();
+}
+
+void Main::DrawUserInterface() const
+{
+	projectionMode.Draw({0.2f, 0.2f, 0.2f}, {0.8f, 0.8f, 0.8f});
+	dimensionMode.Draw({0.2f, 0.2f, 0.2f}, {0.8f, 0.8f, 0.8f});
+	drawingMask3D.Draw({0.2f, 0.2f, 0.2f}, {0.8f, 0.8f, 0.8f});
+	shaderMode.Draw({0.2f, 0.2f, 0.2f}, {0.8f, 0.8f, 0.8f});
 }
 
 void Main::OnKeyboard(int key)
@@ -39,7 +53,6 @@ void Main::OnKeyboard(int key)
     }
 }
 
-
 void Main::OnLeftMouseDown()
 {
     callbackId = EventSystem::UpdateCallback.Register([this](float tick)
@@ -57,6 +70,35 @@ void Main::OnLeftMouse()
 {
     Float2 diff = EventSystem::MousePositionDelta;
     camera.rotation += Float3(0, -diff.x, -diff.y) * DegToRad * 0.25f;
+}
+
+
+void Main::On3DRenderModeChange(int mode)
+{
+	motor.InvertBitFlag(mode);
+}
+
+void Main::OnShaderModeChange(int mode)
+{
+	camera.shader = (Camera::ShaderType) mode;
+}
+
+void Main::OnProjectionChange(int mode)
+{
+	camera.projection = (Camera::ProjectionType) mode;
+}
+
+void Main::OnDimensionChange(int mode)
+{
+	dimension = (Dimension) mode;
+}
+
+Main::Main()
+{
+	drawingMask3D.OptionSelected.Register([this](int m) {this->On3DRenderModeChange(m);});
+	shaderMode.OptionSelected.Register([this](int m) {this->OnShaderModeChange(m);});
+	projectionMode.OptionSelected.Register([this](int m) {this->OnProjectionChange(m);});
+	dimensionMode.OptionSelected.Register([this](int m) {this->OnDimensionChange(m);});
 }
 
 int main()

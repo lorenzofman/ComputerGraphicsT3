@@ -35,7 +35,7 @@ void Button::OnMousePositionUpdate()
 
 void Button::OnLeftMouseButtonDown()
 {
-	if (!active)
+		if (!active)
 	{
 		return;
 	}

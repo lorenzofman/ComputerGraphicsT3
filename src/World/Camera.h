@@ -4,19 +4,35 @@
 #include "../Primitives/Float3.h"
 #include "../Objects/Triangle.h"
 #include "../Objects/Object.h"
+#include "../Primitives/Types.h"
 
 class Camera
 {
     public:
 
-    explicit Camera(float fieldOfView);
-    Float3 position;
-    Float3 rotation;
-    Float2 WorldToDisplay(Float3 worldPoint) const;
+	enum class ProjectionType
+	{
+		Perspective, Orthographic
+	};
+
+	enum class ShaderType
+	{
+		Wireframe, Unlit, Lit
+	};
+
+	Float3 position;
+	Float3 rotation;
+	ProjectionType projection;
+	ShaderType shader;
+
+	explicit Camera(float fieldOfView);
+
+	Float2 WorldToDisplay(Float3 worldPoint) const;
+
     void DrawFace(const Face& face) const;
     void Draw(const Object& obj) const;
-    private:
 
+    private:
 
     float fieldOfView;
     Float3 WorldToView(Float3 worldPoint) const;

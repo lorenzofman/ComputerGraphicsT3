@@ -16,6 +16,8 @@ Crankshaft3D::Crankshaft3D(float rpm, float radius, float rodLength, float pisto
 
 	piston.rotation = {0, 0, PI / 2};
 	this->pistonSize = pistonSize;
+
+	drawingMask = Mask::Piston | Mask::Crank | Mask::Rod | Mask::CounterWeight;
 }
 
 void Crankshaft3D::Draw(Float2 pistonPin, Float2 crankPosition)
@@ -25,10 +27,18 @@ void Crankshaft3D::Draw(Float2 pistonPin, Float2 crankPosition)
 	AlignWithVector({0,0}, crankPosition, crank);
 	AlignWithVector(crankPosition, - crankPosition, crankCounterWeight);
 
-	camera.Draw(rod);
-	camera.Draw(crank);
-	camera.Draw(piston);
-	camera.Draw(crankCounterWeight);
+	DrawObject(piston, Mask::Piston);
+	DrawObject(rod, Mask::Rod);
+	DrawObject(crank, Mask::Crank);
+	DrawObject(crankCounterWeight, Mask::CounterWeight);
+}
+
+void Crankshaft3D::DrawObject(Object& obj, byte mask) const
+{
+	if ((mask & drawingMask) > 0)
+	{
+		camera.Draw(obj);
+	}
 }
 
 void Crankshaft3D::AlignWithVector(Float2 a, Float2 b, Object& object)
@@ -39,4 +49,3 @@ void Crankshaft3D::AlignWithVector(Float2 a, Float2 b, Object& object)
 	float ang = atan2f(vec.y, vec.x);
 	object.rotation = {PI / 2 - ang, 0, 0};
 }
-

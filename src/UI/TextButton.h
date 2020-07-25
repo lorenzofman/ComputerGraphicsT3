@@ -8,10 +8,8 @@ class TextButton : public Button
 {
     public:
     TextButton(std::string label, Float2 bottomLeft, Float2 topRight);
-    ~TextButton();
-    void Draw(Color color, bool selected);
+    void Draw(Color color, Color textColor);
     private:
-    bool deleted;
     Rect rect;
     std::string label;
 };

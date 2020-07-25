@@ -4,8 +4,8 @@
 
 Crankshaft::Crankshaft(float rpm, float radius, float rodLength, float initialRotation)
 {
-	rotation = initialRotation;
 	angularVelocity = 2 * PI * rpm / 60;
+	rotation = initialRotation;
 	this->radius = radius;
 	this->rodLength = rodLength;
 }
@@ -47,4 +47,9 @@ float Crankshaft::CalculatePosition() const
 float Crankshaft::Square(float f)
 {
 	return f * f;
+}
+
+void Crankshaft::UpdateRpm(float rpm)
+{
+	angularVelocity = 2 * PI * rpm / 60;
 }

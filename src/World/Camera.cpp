@@ -9,6 +9,8 @@ Camera::Camera(float fieldOfView)
 {
     this->fieldOfView = fieldOfView;
     position = {0, 0, 0};
+	projection = ProjectionType::Perspective;
+	shader = ShaderType::Wireframe;
 }
 
 Float3 Camera::WorldToView(Float3 worldPoint) const
@@ -25,6 +27,10 @@ Float2 Camera::ViewToProjection(Float3 viewPoint) const
     {
         return {NAN, NAN};
     }
+    if (projection == ProjectionType::Orthographic)
+	{
+		return {aspectRatio * fovDistance * viewPoint.x, viewPoint.y * fovDistance};
+	}
     return {aspectRatio * fovDistance * viewPoint.x / zDistance, viewPoint.y * fovDistance / zDistance};
 }
 
@@ -46,7 +52,18 @@ void Camera::DrawFace(const Face& face) const
 	{
 		points.push_back(WorldToDisplay(point));
 	}
-	Canvas2D::DrawPolygon(points.data(), points.size());
+
+	switch (shader)
+	{
+		case ShaderType::Wireframe:
+			Canvas2D::DrawPolygon(points.data(), points.size());
+			break;
+		case ShaderType::Unlit:
+			Canvas2D::DrawFilledPolygon(points.data(), points.size());
+			break;
+		case ShaderType::Lit:
+			break;
+	}
 }
 
 void Camera::Draw(const Object& obj) const

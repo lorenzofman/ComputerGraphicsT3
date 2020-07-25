@@ -6,14 +6,17 @@
 class Crankshaft
 {
 	public:
+
 	Crankshaft(float rpm, float radius, float rodLength, float initialRotation = PI / 2);
 
 	void Update(float deltaTime);
 
-	virtual void Draw(Float2 pistonPin, Float2 crankPosition) = 0;
+
+	void UpdateRpm(float rpm);
 
 	protected:
 	float rotation;
+	virtual void Draw(Float2 pistonPin, Float2 crankPosition) = 0;
 
 	private:
 	void UpdateVelocity(float deltaTime);

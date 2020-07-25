@@ -8,10 +8,16 @@
 #include "../Objects/Object.h"
 #include "../Objects/ObjectCreator.h"
 #include "../Objects/Crankshaft3D.h"
+#include "../UI/OptionToggle.h"
+#include "../UI/MultipleToggleOption.h"
+#include "../Objects/Motor.h"
 
 class Main
 {
     public:
+
+	enum class Dimension {D2, D3};
+
     void OnKeyboard(int key);
 
     void OnUpdate(float tick);
@@ -20,18 +26,32 @@ class Main
 
     void OnLeftMouseUp() const;
 
+    Main();
 
 	private:
-    Crankshaft2D crankshaft2D = Crankshaft2D(20, 100, 320);
-	Camera camera = Camera(75);
-	Crankshaft3D crankshaft1 = Crankshaft3D(50, 0.2f, 0.6f,0.5f, camera, 0, 0);
-	Crankshaft3D crankshaft2 = Crankshaft3D(50, 0.2f, 0.6f,0.5f, camera, 0.314, PI);
-	Crankshaft3D crankshaft3 = Crankshaft3D(50, 0.2f, 0.6f,0.5f, camera, 0.628, PI);
-	Crankshaft3D crankshaft4 = Crankshaft3D(50, 0.2f, 0.6f,0.5f, camera, 0.942, 0);
 
+	Camera camera = Camera(75);
+	Crankshaft2D crankshaft2D = Crankshaft2D(20, 100, 320);
+	Motor motor = Motor(50, 0.2f, 0.6f, 0.5f, camera);
+
+	Dimension dimension = Dimension::D3;
+	MultipleToggleOption drawingMask3D = MultipleToggleOption({96, 18}, {192, 36},
+															  {"Pistons", "Cranks", "Rods","Counter-Weights", "Normals"}, {0, 1, 2, 3});
+	OptionToggle shaderMode = OptionToggle({96, 54}, {192, 36}, {"Wireframe", "Unlit", "Lit"});
+	OptionToggle projectionMode = OptionToggle({96, 90}, {192, 36}, {"Perspective", "Orthographic"});
+	OptionToggle dimensionMode = OptionToggle({96, 126}, {192, 36}, {"2D", "3D"}, 1);
 
 	int callbackId = -1;
-    void OnLeftMouse();
 
-	Object connectingPipe = ObjectCreator::BuildCylinder(32, 0.1f, 0.6f);
+	void OnLeftMouse();
+
+	void On3DRenderModeChange(int mode);
+
+	void OnShaderModeChange(int mode);
+
+	void OnProjectionChange(int mode);
+
+	void OnDimensionChange(int mode);
+
+	void DrawUserInterface() const;
 };

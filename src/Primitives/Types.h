@@ -1,4 +1,5 @@
 #pragma once
+
 /* As per Pozzer recommendation */
 typedef unsigned char uchar;
 typedef unsigned short ushort;
