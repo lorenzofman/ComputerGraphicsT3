@@ -33,21 +33,22 @@ std::vector<Face> ObjectCreator::ExtrudeFace(const Face& face, Float3 direction)
 	top.Translate(direction * 0.5);
 	bottom.Translate(direction * -0.5);
 
-	faces.push_back(top);
-	faces.push_back(bottom);
-
-
-	for (int i = 0; i < size - 1; i++)
+	faces.reserve(size + 2);
+    faces.push_back(top);
+    for (int i = 0; i < size - 1; i++)
 	{
 		faces.emplace_back(
-				bottom.points[i],
-				top.points[i],
+				bottom.points[i + 1],
 				top.points[i + 1],
-				bottom.points[i + 1]);
+				top.points[i],
+				bottom.points[i]);
 	}
+    faces.emplace_back(bottom.points[size - 1], top.points[size - 1], top.points[0], bottom.points[0]);
 
-	faces.emplace_back(bottom.points[size - 1], top.points[size - 1], top.points[0], bottom.points[0]);
-	return faces;
+    std::reverse(bottom.points.begin(), bottom.points.end()); // Inverting normals
+    faces.push_back(bottom);
+
+    return faces;
 }
 
 Object ObjectCreator::BuildFlatRoundedRectangle(float height, float width, float depth, int segments)
@@ -92,7 +93,7 @@ Object ObjectCreator::BuildBox(float width, float height, float depth)
 	object.faces.emplace_back(p[0], p[1], p[3], p[2]);
 	object.faces.emplace_back(p[0], p[1], p[5], p[4]);
 	object.faces.emplace_back(p[0], p[2], p[6], p[4]);
-	object.faces.emplace_back(p[1], p[3], p[7], p[5]);
+	object.faces.emplace_back(p[5], p[7], p[3], p[1]);
 	object.faces.emplace_back(p[2], p[3], p[7], p[6]);
 	object.faces.emplace_back(p[4], p[6], p[7], p[5]);
 
@@ -109,6 +110,8 @@ Object ObjectCreator::BuildMotorCylinder(int segments, float radius, float heigh
 	}
 	auto halfCylinder = Object(ExtrudeFace(circle.faces[0], {0, 0, height}));
 	halfCylinder.faces.pop_back();
-	return halfCylinder	;
+    halfCylinder.faces.pop_back();
+
+    return halfCylinder	;
 }
 

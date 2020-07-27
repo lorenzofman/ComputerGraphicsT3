@@ -41,16 +41,20 @@ void Crankshaft3D::Draw(Float2 pistonPin, Float2 crankPosition)
 	Canvas2D::SetColor({0, 1, 1});
 	if ((drawingMask & Mask::Normals) > 0)
 	{
-		DrawNormals(piston);
-		DrawNormals(rod);
-		DrawNormals(crank);
-		DrawNormals(cylinder);
-		DrawNormals(crankCounterWeight);
+		DrawNormals(piston, Mask::Piston);
+		DrawNormals(rod, Mask::Rod);
+		DrawNormals(crank, Mask::Crank);
+		DrawNormals(cylinder, Mask::Cylinder);
+		DrawNormals(crankCounterWeight, Mask::CounterWeight);
 	}
 }
 
-void Crankshaft3D::DrawNormals(const Object& object)
+void Crankshaft3D::DrawNormals(const Object& object, byte mask)
 {
+    if ((mask & drawingMask) == 0)
+    {
+        return;
+    }
 	// Faces are always planar and their normal are defined by 3 points
 	for (auto face : object.faces)
 	{

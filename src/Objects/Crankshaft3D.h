@@ -32,7 +32,7 @@ class Crankshaft3D : public Crankshaft
 	Object cylinder;
 	float pistonSize;
 
-	void DrawNormals(const Object& object);
+	void DrawNormals(const Object& object, byte mask);
 	static Float3 FaceCenter(const Face& face);
 
 	static void AlignWithVector(Float2 a, Float2 b, Object& object);
