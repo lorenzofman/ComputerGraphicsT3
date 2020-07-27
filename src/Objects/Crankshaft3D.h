@@ -12,7 +12,8 @@ class Crankshaft3D : public Crankshaft
 		static const byte Piston = 1U;
 		static const byte Crank = Piston << 1U;
 		static const byte Rod = Crank << 1U;
-		static const byte CounterWeight = Rod << 1U;
+		static const byte Cylinder = Rod << 1U;
+		static const byte CounterWeight = Cylinder << 1U;
 		static const byte Normals = CounterWeight << 1U;
 	};
 	Crankshaft3D(float rpm, float radius, float rodLength, float pistonSize, Camera& camera, float pos, float initialRotation);
@@ -28,7 +29,11 @@ class Crankshaft3D : public Crankshaft
 	Object crankCounterWeight;
 	Object piston;
 	Object crank;
+	Object cylinder;
 	float pistonSize;
+
+	void DrawNormals(const Object& object);
+	static Float3 FaceCenter(const Face& face);
 
 	static void AlignWithVector(Float2 a, Float2 b, Object& object);
 

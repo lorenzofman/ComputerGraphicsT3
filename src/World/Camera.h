@@ -17,15 +17,17 @@ class Camera
 
 	enum class ShaderType
 	{
-		Wireframe, Unlit, Lit
+		Wireframe, Unlit
 	};
 
 	Float3 position;
 	Float3 rotation;
+	float fieldOfView;
 	ProjectionType projection;
 	ShaderType shader;
 
 	explicit Camera(float fieldOfView);
+
 
 	Float2 WorldToDisplay(Float3 worldPoint) const;
 
@@ -34,7 +36,6 @@ class Camera
 
     private:
 
-    float fieldOfView;
     Float3 WorldToView(Float3 worldPoint) const;
     Float2 ViewToProjection(Float3 viewPoint) const;
     static Float2 ProjectionToDisplay(Float2 projectionPoint);

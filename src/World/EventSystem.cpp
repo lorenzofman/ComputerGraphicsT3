@@ -20,7 +20,7 @@ Callback<> EventSystem::RightMouseButtonDownCallback;
 Callback<> EventSystem::RightMouseButtonUpCallback;
 
 Callback<> EventSystem::MouseMovementCallback;
-Callback<> EventSystem::MouseWheelCallback;
+Callback<int> EventSystem::MouseWheelCallback;
 
 Callback<> EventSystem::ScreenUpdateCallback;
 
@@ -75,7 +75,7 @@ void EventSystem::OnMouseUpdate(int button, int state, int wheel, int direction,
 
 	if (direction != 0 && direction != -2)
 	{
-		MouseWheelCallback.Invoke();
+		MouseWheelCallback.Invoke(direction);
 	}
 }
 

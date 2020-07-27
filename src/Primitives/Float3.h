@@ -49,12 +49,26 @@ struct Float3
         return {x * constant, y * constant, z * constant};
     }
 
+	Float3 operator/(float const &constant) const
+	{
+    	const float inverse = (1 / constant);
+		return {x * inverse, y * inverse, z * inverse};
+	}
+
     void operator*=(float const& constant)
     {
         x *= constant;
         y *= constant;
         z *= constant;
     }
+
+	Float3 operator/=(float const &constant)
+	{
+		const float inverse = (1 / constant);
+		x *= inverse;
+		y *= inverse;
+		z *= inverse;
+	}
 
     Float3 Rotate(Float3 euler) const
     {
@@ -79,4 +93,33 @@ struct Float3
 
         return {rx, ry, rz};
     }
+
+	float GetLength() const
+	{
+		return Distance(*this, Float3(0, 0, 0));
+	}
+
+	void Normalize()
+	{
+		*this *= 1 / GetLength();
+	}
+
+	Float3 GetNormalized() const
+	{
+		return *this * (1 / GetLength());
+	}
+
+	float Distance(Float3 a, Float3 b) const
+	{
+		return sqrtf(DistanceSq(a,b));
+	}
+
+	float DistanceSq(Float3 a, Float3 b) const
+	{
+		float dx = b.x - a.x;
+		float dy = b.y - a.y;
+		float dz = b.z - a.z;
+
+		return dx * dx + dy * dy + dz * dz;
+	}
 };

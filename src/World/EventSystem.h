@@ -51,7 +51,7 @@ class EventSystem
 	static Callback<> RightMouseButtonUpCallback;
 
 	static Callback<> MouseMovementCallback;
-	static Callback<> MouseWheelCallback;
+	static Callback<int> MouseWheelCallback;
 
     static Callback<> ScreenUpdateCallback;
 

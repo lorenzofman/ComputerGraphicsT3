@@ -99,3 +99,16 @@ Object ObjectCreator::BuildBox(float width, float height, float depth)
 	return object;
 }
 
+Object ObjectCreator::BuildMotorCylinder(int segments, float radius, float height)
+{
+	auto circle = ObjectCreator::BuildCircle(segments, radius);
+	Face& circleFace = circle.faces[0];
+	for (int i = 0; i < segments / 2; i++)
+	{
+		circleFace.points.pop_back();
+	}
+	auto halfCylinder = Object(ExtrudeFace(circle.faces[0], {0, 0, height}));
+	halfCylinder.faces.pop_back();
+	return halfCylinder	;
+}
+

@@ -14,21 +14,13 @@
 
 class Main
 {
-    public:
-
-	enum class Dimension {D2, D3};
-
-    void OnKeyboard(int key);
-
-    void OnUpdate(float tick);
-
-    void OnLeftMouseDown();
-
-    void OnLeftMouseUp() const;
+	public:
 
     Main();
 
 	private:
+
+	enum class Dimension {D2, D3};
 
 	Camera camera = Camera(75);
 	Crankshaft2D crankshaft2D = Crankshaft2D(20, 100, 320);
@@ -36,14 +28,26 @@ class Main
 
 	Dimension dimension = Dimension::D3;
 	MultipleToggleOption drawingMask3D = MultipleToggleOption({96, 18}, {192, 36},
-															  {"Pistons", "Cranks", "Rods","Counter-Weights", "Normals"}, {0, 1, 2, 3});
-	OptionToggle shaderMode = OptionToggle({96, 54}, {192, 36}, {"Wireframe", "Unlit", "Lit"});
+															  {"Pistons", "Cranks", "Rods", "Cylinder", "Counter-Weights", "Normals"}, {0, 1, 2, 3, 4});
+	OptionToggle shaderMode = OptionToggle({96, 54}, {192, 36}, {"Wireframe", "Unlit"});
 	OptionToggle projectionMode = OptionToggle({96, 90}, {192, 36}, {"Perspective", "Orthographic"});
 	OptionToggle dimensionMode = OptionToggle({96, 126}, {192, 36}, {"2D", "3D"}, 1);
 
-	int callbackId = -1;
+	int rightMouseCallback = -1;
+	int middleMouseCallback = -1;
 
-	void OnLeftMouse();
+	void OnKeyboard(int key);
+	void OnUpdate(float tick);
+
+	void OnLeftMouseDown();
+	void OnRightMouseUp() const;
+	void OnRightMouse();
+
+	void OnMiddleMouseDown();
+	void OnMiddleMouseUp() const;
+	void OnMiddleMouse(float tick);
+
+	void OnScrollMouse(int dir);
 
 	void On3DRenderModeChange(int mode);
 

@@ -29,7 +29,9 @@ Float2 Camera::ViewToProjection(Float3 viewPoint) const
     }
     if (projection == ProjectionType::Orthographic)
 	{
-		return {aspectRatio * fovDistance * viewPoint.x, viewPoint.y * fovDistance};
+    	// https://answers.unity.com/questions/1638789/top-down-perspective-camera-fov-to-orthographic-si.html
+		auto halfFrustumHeight = tanf(fieldOfView * 0.5f * DegToRad);
+		return {aspectRatio * viewPoint.x * halfFrustumHeight, viewPoint.y * halfFrustumHeight};
 	}
     return {aspectRatio * fovDistance * viewPoint.x / zDistance, viewPoint.y * fovDistance / zDistance};
 }
@@ -60,8 +62,6 @@ void Camera::DrawFace(const Face& face) const
 			break;
 		case ShaderType::Unlit:
 			Canvas2D::DrawFilledPolygon(points.data(), points.size());
-			break;
-		case ShaderType::Lit:
 			break;
 	}
 }

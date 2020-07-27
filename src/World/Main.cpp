@@ -55,23 +55,46 @@ void Main::OnKeyboard(int key)
 
 void Main::OnLeftMouseDown()
 {
-    callbackId = EventSystem::UpdateCallback.Register([this](float tick)
+	rightMouseCallback = EventSystem::UpdateCallback.Register([this](float tick)
 	{
-		this->OnLeftMouse();
+		this->OnRightMouse();
 	});
 }
 
-void Main::OnLeftMouseUp() const
+void Main::OnRightMouseUp() const
 {
-    EventSystem::UpdateCallback.Deregister(callbackId);
+    EventSystem::UpdateCallback.Deregister(rightMouseCallback);
 }
 
-void Main::OnLeftMouse()
+void Main::OnRightMouse()
 {
     Float2 diff = EventSystem::MousePositionDelta;
     camera.rotation += Float3(0, -diff.x, -diff.y) * DegToRad * 0.25f;
 }
 
+void Main::OnMiddleMouseDown()
+{
+	middleMouseCallback = EventSystem::UpdateCallback.Register([this](float tick)
+ 	{
+		this->OnMiddleMouse(tick);
+ 	});
+}
+
+void Main::OnMiddleMouseUp() const
+{
+	EventSystem::UpdateCallback.Deregister(middleMouseCallback);
+}
+
+void Main::OnMiddleMouse(float tick)
+{
+	Float2 diff = EventSystem::MousePositionDelta;
+	camera.position += Float3(-diff.x, -diff.y, 0) * tick;
+}
+
+void Main::OnScrollMouse(int direction)
+{
+	camera.fieldOfView -= direction;
+}
 
 void Main::On3DRenderModeChange(int mode)
 {
@@ -99,16 +122,27 @@ Main::Main()
 	shaderMode.OptionSelected.Register([this](int m) {this->OnShaderModeChange(m);});
 	projectionMode.OptionSelected.Register([this](int m) {this->OnProjectionChange(m);});
 	dimensionMode.OptionSelected.Register([this](int m) {this->OnDimensionChange(m);});
+
+	EventSystem::RightMouseButtonDownCallback.Register([this]{this->OnLeftMouseDown();});
+	EventSystem::RightMouseButtonUpCallback.Register([this]{this->OnRightMouseUp();});
+
+	EventSystem::MiddleMouseButtonDownCallback.Register([this]{this->OnMiddleMouseDown();});
+	EventSystem::MiddleMouseButtonUpCallback.Register([this]{this->OnMiddleMouseUp();});
+
+	EventSystem::UpdateCallback.Register([this](float tick){this->OnUpdate(tick);});
+	EventSystem::KeyDownCallback.Register([this](int key){this->OnKeyboard(key);});
+
+	EventSystem::MouseWheelCallback.Register([this](int dir){this->OnScrollMouse(dir);});
+
 }
+
 
 int main()
 {
-    Main mainInstance = Main();
 	EventSystem::Start();
-    EventSystem::UpdateCallback.Register([&mainInstance](float tick){mainInstance.OnUpdate(tick);});
-    EventSystem::KeyDownCallback.Register([&mainInstance](int key){mainInstance.OnKeyboard(key);});
-    EventSystem::RightMouseButtonDownCallback.Register([&mainInstance]{mainInstance.OnLeftMouseDown();});
-    EventSystem::RightMouseButtonUpCallback.Register([&mainInstance]{mainInstance.OnLeftMouseUp();});
+	Main mainInstance = Main();
+
+
     Canvas2D(&Screen::Height, &Screen::Width, "Canvas", &EventSystem::OnKeyDown, &EventSystem::OnKeyUp,
              &EventSystem::OnMouseUpdate, &EventSystem::OnUpdate, &EventSystem::ScreenUpdate);
 }
