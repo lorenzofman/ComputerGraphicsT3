@@ -1,6 +1,6 @@
 #include "Motor.h"
 
-Motor::Motor(float rpm, float radius, float rodLength, float pistonSize, Camera& camera)
+Motor::Motor(float rpm, float radius, float rodLength, Camera &camera)
 {
 	for (int i = 0; i < 4; i++)
 	{

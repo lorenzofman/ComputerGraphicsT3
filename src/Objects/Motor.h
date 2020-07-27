@@ -6,7 +6,7 @@ class Motor
 {
 	public:
 
-	Motor(float rpm, float radius, float rodLength, float pistonSize, Camera& camera);
+	Motor(float rpm, float radius, float rodLength, Camera &camera);
 
 	void UpdateRpm(float rpm);
 

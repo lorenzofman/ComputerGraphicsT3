@@ -31,7 +31,7 @@ add_executable(Canvas src/World/Main.cpp
         src/Objects/ObjectCreator.cpp
         src/Objects/ObjectCreator.h
         src/Objects/Object.h
-        src/Objects/Triangle.h src/Objects/Crankshaft3D.cpp src/Objects/Crankshaft3D.h src/Objects/Face.cpp src/Objects/Face.h src/Objects/Crankshaft.cpp src/Objects/Crankshaft.h src/UI/OptionToggle.cpp src/UI/OptionToggle.h src/UI/MultipleToggleOption.cpp src/UI/MultipleToggleOption.h src/Objects/Motor.cpp src/Objects/Motor.h)
+        src/Objects/Triangle.h src/Objects/Crankshaft3D.cpp src/Objects/Crankshaft3D.h src/Objects/Face.cpp src/Objects/Face.h src/Objects/Crankshaft.cpp src/Objects/Crankshaft.h src/UI/OptionToggle.cpp src/UI/OptionToggle.h src/UI/MultipleToggleOption.cpp src/UI/MultipleToggleOption.h src/Objects/Motor.cpp src/Objects/Motor.h src/UI/Slider.cpp src/UI/Slider.h)
 
 include_directories(include)
 target_link_libraries(Canvas C:/Library/freeglut.lib)

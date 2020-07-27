@@ -1,6 +1,5 @@
 #include "EventSystem.h"
 #include "Main.h"
-#include "Screen.h"
 
 void Main::OnUpdate(float tick)
 {
@@ -26,6 +25,8 @@ void Main::DrawUserInterface() const
 	dimensionMode.Draw({0.2f, 0.2f, 0.2f}, {0.8f, 0.8f, 0.8f});
 	drawingMask3D.Draw({0.2f, 0.2f, 0.2f}, {0.8f, 0.8f, 0.8f});
 	shaderMode.Draw({0.2f, 0.2f, 0.2f}, {0.8f, 0.8f, 0.8f});
+	rpmSlider.Draw();
+	Canvas2D::DrawText({5, 200}, rpmText.c_str());
 }
 
 void Main::OnKeyboard(int key)
@@ -134,15 +135,28 @@ Main::Main()
 
 	EventSystem::MouseWheelCallback.Register([this](int dir){this->OnScrollMouse(dir);});
 
+	camera.position = {-0.15f, 0.55f, -2};
+	camera.rotation = {0, PI / 3, -PI / 10};
+
+	rpmSlider.valueChangeCallback.Register([this](float val)
+	{
+		float rpm = powf(45, val + 0.5f);
+		this->motor.UpdateRpm(rpm);
+		this->crankshaft2D.UpdateRpm(rpm);
+		UpdateRpmText(rpm);
+	});
+	UpdateRpmText(45);
 }
 
+void Main::UpdateRpmText(float rpm)
+{
+	rpmText = std::to_string(rpm) + " RPM";
+}
 
 int main()
 {
 	EventSystem::Start();
 	Main mainInstance = Main();
-
-
     Canvas2D(&Screen::Height, &Screen::Width, "Canvas", &EventSystem::OnKeyDown, &EventSystem::OnKeyUp,
              &EventSystem::OnMouseUpdate, &EventSystem::OnUpdate, &EventSystem::ScreenUpdate);
 }

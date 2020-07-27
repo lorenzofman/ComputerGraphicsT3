@@ -21,7 +21,7 @@ class Button
 	explicit Button(IPointInside& pointInside);
 	~Button();
 	
-	bool IsMouseOver();
+	bool IsMouseOver() const;
 
 	private:
 	

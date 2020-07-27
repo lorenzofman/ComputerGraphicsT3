@@ -66,10 +66,10 @@ Object ObjectCreator::BuildFlatRoundedRectangle(float height, float width, float
 	return Object(ExtrudeFace(face, {0, 0, depth}));
 }
 
-Object ObjectCreator::BuildCube(float edge)
-{
-	return BuildBox(edge, edge, edge);
-}
+// Object ObjectCreator::BuildCube(float edge)
+// {
+// 		return BuildBox(edge, edge, edge);
+// }
 
 Object ObjectCreator::BuildBox(float width, float height, float depth)
 {

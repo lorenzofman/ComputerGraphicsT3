@@ -11,6 +11,8 @@
 #include "../UI/OptionToggle.h"
 #include "../UI/MultipleToggleOption.h"
 #include "../Objects/Motor.h"
+#include "../UI/Slider.h"
+#include "Screen.h"
 
 class Main
 {
@@ -24,7 +26,7 @@ class Main
 
 	Camera camera = Camera(75);
 	Crankshaft2D crankshaft2D = Crankshaft2D(20, 100, 320);
-	Motor motor = Motor(50, 0.2f, 0.6f, 0.5f, camera);
+	Motor motor = Motor(45, 0.2f, 0.6f, camera);
 
 	Dimension dimension = Dimension::D3;
 	MultipleToggleOption drawingMask3D = MultipleToggleOption({96, 18}, {192, 36},
@@ -32,7 +34,9 @@ class Main
 	OptionToggle shaderMode = OptionToggle({96, 54}, {192, 36}, {"Wireframe", "Unlit"});
 	OptionToggle projectionMode = OptionToggle({96, 90}, {192, 36}, {"Perspective", "Orthographic"});
 	OptionToggle dimensionMode = OptionToggle({96, 126}, {192, 36}, {"2D", "3D"}, 1);
-
+	Slider rpmSlider = Slider(Float2(128, 168),256, 20, {0.4f, 0.4f, 0.4f},
+			{0.6f, 0.6f, 0.6f}, {1, 0.9f, 0.76f});
+	std::string rpmText;
 	int rightMouseCallback = -1;
 	int middleMouseCallback = -1;
 
@@ -58,4 +62,6 @@ class Main
 	void OnDimensionChange(int mode);
 
 	void DrawUserInterface() const;
+
+	void UpdateRpmText(float rpm);
 };

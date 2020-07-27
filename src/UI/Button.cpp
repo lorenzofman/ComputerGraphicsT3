@@ -9,7 +9,7 @@ Button::Button(IPointInside &pointInside) : pointInside(pointInside)
     this->active = true;
 }
 
-bool Button::IsMouseOver()
+bool Button::IsMouseOver() const
 {
 	return pointInside.IsPointInside(EventSystem::MousePosition);
 }

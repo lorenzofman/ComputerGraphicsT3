@@ -6,7 +6,7 @@ CircleButton::CircleButton(Float2 pos, float radius, Color color) : circle(Circl
 
 }
 
-void CircleButton::Draw()
+void CircleButton::Draw() const
 {
     if (IsMouseOver())
     {
